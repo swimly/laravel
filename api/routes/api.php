@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::group(['middleware'=>['jsonify','web']], function () {
     Route::get('register', 'AuthController@register');
-    Route::post('login', 'AuthController@login');
+    Route::get('login', 'AuthController@login');
 });
 Route::group(['middleware'=>['web']], function () {
     Route::get('captcha/{config?}', 'AuthController@captcha');

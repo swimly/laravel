@@ -21,6 +21,7 @@ class ArticleTransformer extends TransformerAbstract
             'tag' => $article->tag,
             'star' => $article->star,
             'read' => $article->read,
+            'author' => $article->author,
             'content' => $article->content,
             'time' => $article->created_at
         ];

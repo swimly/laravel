@@ -42,21 +42,34 @@ class AuthController extends Controller
     }
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-        if ( ! $token = JWTAuth::attempt($credentials)) {
+        $validator = Captcha::check_api($request->captcha, $request->key);
+        if (!$validator) {
+            return response()->json([
+                'errors'=> [
+                    'captcha'=> '验证码有误！'
+                ],
+                'message'=> 'The given data was invalid.'
+            ]);
+        } else {
+            $credentials = $request->only('email', 'password');
+            if ( ! $token = JWTAuth::attempt($credentials)) {
                 return response([
                     'status' => 0,
                     'error' => 'invalid.credentials',
                     'msg' => '错误的邮箱或密码！'
                 ], 400);
-        }
-        return response([
+            }
+            $user = User::where('email', $request->email)->first();
+            $user->token = $token;
+            $user->save();
+            return response([
                 'status' => 1,
                 'msg'=>'登录成功！',
                 'data'=>[
                     'token' => $token
                 ]
             ]);
+        }
     }
     public function user(Request $request)
     {

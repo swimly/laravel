@@ -26,6 +26,7 @@ class ArticleFormRequest extends FormRequest
         return [
             'title' => 'required|string',
             'classify' => 'required|string',
+            'author'=> 'required|string',
             'tag' => 'required|string',
             'content' => 'required|string',
         ];

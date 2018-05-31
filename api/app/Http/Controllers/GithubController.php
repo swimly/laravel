@@ -10,12 +10,12 @@ class GithubController extends Controller
 {
     public function redirectToProvider()
     {
-        return Socialite::driver('github')->redirect();
+        return Socialite::driver('github')->stateless()->redirect();
     }
     public function handleProviderCallback()
     {
         try {
-            $user = Socialite::driver('github')->user();
+            $user = Socialite::driver('github')->stateless()->user();
         } catch (Exception $e) {
             return Redirect::to('auth/github');
         }

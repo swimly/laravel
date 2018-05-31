@@ -16,12 +16,15 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('uId')->nullable();
+            $table->string('cover')->nullable();
+            $table->integer('status')->default(0);
             $table->string('title');
-            $table->string('classify');
-            $table->string('tag');
+            $table->string('classify')->nullable();
+            $table->string('tag')->nullable();
+            $table->string('author')->nullable();
             $table->integer('star')->default(0);
             $table->integer('read')->default(0);
-            $table->text('content');
+            $table->longText('content');
             $table->timestamps();
         });
     }
